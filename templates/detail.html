@@ -1,0 +1,31 @@
+{% extends "nav.html" %}
+{% block content %}
+<main class="container">
+      {% if isWriter is not True %}
+      <input type="hidden" value="{{detail_data.update_counter}}">
+      {% endif %}
+      <div class="row" style="background-color: #f8f8f8">
+            <div class="col-md-8">작성자 : {{detail_data.writer}}</div>
+            <div class="col-md-4">날짜 : {{detail_data.dateCreated}}</div>
+            <div class="col-md-8">제목 : {{detail_data.title}}</div>
+            <div class="col-md-2">조회수 : {{detail_data.boardView}}</div>
+            <div class="col-md-2">추천수 : {{detail_data.boardLike}}</div>
+      </div>
+            <div class="row" style="padding: 10px;">
+                  <div>내용 : {{detail_data.content}}<br>
+                        {% if photo_data  %}
+                        {% for photo in photo_data %}
+                        <img src="/media/{{photo.image}}">
+                        {% endfor %}
+                        {% endif %}
+                  </div>
+            </div>
+
+      <button class="btn-dark" style="margin-top: 20px;" onclick="location.href='{% url "main" %}'">목록으로</button>
+      <button class="btn-primary" onclick="location.href='{% url "like" detail_data.id %}'">추천</button>
+      {% if isWriter %}
+      <button class="btn-dark" onclick="location.href='{% url "board_update" detail_data.id %}'">수정</button>
+      <button class="btn-dark" onclick="location.href='{% url "board_delete" detail_data.id %}'">삭제</button>
+      {% endif %}
+</main>
+{% endblock content %}
