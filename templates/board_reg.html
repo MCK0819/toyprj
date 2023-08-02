@@ -1,0 +1,41 @@
+{% extends "nav.html" %}
+{% block content %}
+
+<main class="container">
+    <div class="section">
+        {% if board %}
+        <form method="post" enctype="multipart/form-data" action="/board/board_edit/{{board.pk}}" > {% csrf_token %}
+            <div class="mb-12">
+                <label for="title_up">제목 :</label>
+                <input type="text" class="text" id="title_up" name="title" value="{{board.title}}">
+                <br>
+                <br>
+                <label for="content_up">내용 :</label>
+                <textarea class="vLargeTextField" id="content_up" name="content" >{{board.content}}</textarea>
+                <br>
+                <br>
+                <label for="image_up">이미지 업로드 :</label>
+                <input type="file" id="image_up" name="imgs" multiple>
+            </div>
+            <input type="submit" class="btn btn-primary" value="수정하기">
+        </form>
+        {% else %}
+        <form method="post" enctype="multipart/form-data" action="/board/board_create" > {% csrf_token %}
+            <div class="mb-12">
+                <label for="title">제목 :</label>
+                <input type="text" class="text" id="title" name="title">
+                <br>
+                <br>
+                <label for="content">내용 :</label>
+                <textarea class="vLargeTextField" id="content" name="content" ></textarea>
+                <br>
+                <br>
+                <label for="image">이미지 업로드 :</label>
+                <input type="file" id="image" name="imgs" multiple>
+            </div>
+            <input type="submit" class="btn btn-primary" value="작성하기">
+        </form>
+        {% endif %}
+    </div>
+</main>
+{% endblock content %}
